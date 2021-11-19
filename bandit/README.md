@@ -21,7 +21,7 @@ Check for human readable file in the "inhere" folder:
 file ./* | grep text
 ```
 
-# Level 5 -> 6
+## Level 5 -> 6
 Level task gave following attributes to search for:
 - human-readable
 - 1033 bytes in size
@@ -44,7 +44,7 @@ So the searched file can be found using:
 find . -readable -size 1033c -perm -a-x
 ```
 
-# Level 6 -> 7
+## Level 6 -> 7
 Level task gave following attributes to search for:
  - owned by user bandit7
  - owned by group bandit6
@@ -65,7 +65,7 @@ So the searched file can be found using:
 find / -user bandit7 -group bandit6 -size 33c 2> /dev/null 
 ```
 
-# Level 7 -> 8
+## Level 7 -> 8
 Password should be next to the word "millionth" in the `data.txt` file.
 
 Use grep to get the desired line:
@@ -73,7 +73,7 @@ Use grep to get the desired line:
 cat data.txt | grep millionth
 ```
 
-# Level 8 -> 9
+## Level 8 -> 9
 Password is only unique line in `data.txt` file.
 
 Reading the `uniq` man-page gives following useful option:
@@ -89,7 +89,7 @@ So we have to use `sort` before piping to `uniq`:
 cat data.txt | sort | uniq -u
 ```
 
-# Level 9 -> 10
+## Level 9 -> 10
 Password is one of the few human-readable lines and is preceded by several
 "-" characters.
 
@@ -98,7 +98,7 @@ So we can just use a combination of `cat`, `strings` and `grep`:
 cat data.txt | strings | grep "=="
 ```
 
-# Level 10 -> 11
+## Level 10 -> 11
 Password is stored in `data.txt` which is base64 encoded.
 
 Use `base64` to decode:
@@ -106,7 +106,7 @@ Use `base64` to decode:
 cat data.txt | base64 -d
 ```
 
-# Level 11 -> 12
+## Level 11 -> 12
 The password is stored in `data.txt` and "have been rotated by 13 positions".
 This is basic ROT13 "encryption".
 
@@ -131,7 +131,7 @@ This is possible because `a-zA-Z` and `n-za-mN-ZA-M` are obviously equally long
 ranges and when split automatically `a-z` is correctly split in half between
 `m` and `n`.
 
-# Level 12 -> 13
+## Level 12 -> 13
 The password is stored in the `data.txt` file which is a hexdump of a
 multiple times compressed file. It can be fully decompressed and read 
 by determining the compression utility used with the `file` command and then 
@@ -139,14 +139,14 @@ decompressing/extracting it either with `tar`, `gzip` or `bzip2`.
 
 To convert the hexdump to a file `xxd -r` can be used.
 
-# Level 13 -> 14
+## Level 13 -> 14
 The next level can be solved by using the given private ssh-key and login
 with the `bandit14` account by:
 ```bash
 ssh bandit14@localhost -i sshkey.private
 ```
 
-# Level 14 -> 15
+## Level 14 -> 15
 The current password is found at `/etc/bandit_pass/bandit14`.
 It can be used to send it via tcp (by using `netcat`) to the port 30000 of
 the current machine (`localhost`) the service behind that port will answer
@@ -156,7 +156,7 @@ with the next password:
 netcat localhost 30000
 ```
 
-# Level 15 -> 16
+## Level 15 -> 16
 The next password is retrieved by sending the current password to the port
 30001 using ssl/tls:
 
@@ -164,7 +164,7 @@ The next password is retrieved by sending the current password to the port
 openssl s_client -connect localhost:30001
 ```
 
-# Level 16 -> 17
+## Level 16 -> 17
 Use nmap to scan for all tcp services running on localhost:
 ```bash
 nmap -sT localhost -p 31000-32000
@@ -181,7 +181,7 @@ used to check for a valid ssl service behind each of these ports. Port `31790`
 responds with an RSA-KEY which can be used to login into the next level using
 `ssh -l <key> <host>`
 
-# Level 17 -> 18
+## Level 17 -> 18
 This level can be solved by comparing `passwords.new` to `passwords.old`
 with the `diff` tool:
 
@@ -212,7 +212,7 @@ The output means:
 
 The password for the next level is the new version of the changed line.
 
-# Level 18 -> 19
+## Level 18 -> 19
 The bashrc of the `bandit18` user exits the shell.
 
 To prevent loading of the bashrc we can use `/bin/sh` instead:
@@ -221,7 +221,7 @@ To prevent loading of the bashrc we can use `/bin/sh` instead:
 ssh -p 2220 bandit18@bandit.labs.overthewire.org /bin/sh
 ```
 
-# Level 19 -> 20
+## Level 19 -> 20
 For this level you only need to execute the bandit20-do binary which
 has the [setuid-bit](https://en.wikipedia.org/wiki/Setuid#When_set_on_an_executable_file) set and invokek cat to print the password:
 
@@ -229,7 +229,7 @@ has the [setuid-bit](https://en.wikipedia.org/wiki/Setuid#When_set_on_an_executa
 ./bandit20-do cat /etc/bandit_pass/bandit20
 ```
 
-# Level 20 -> 21
+## Level 20 -> 21
 In this level another `setuid`-binary is given which connects to a given port
 and responds which the next password when receiving the last password on that
 port via TCP.
@@ -259,7 +259,7 @@ A TCP-connection is established and the last password can be entered from the
 next password.
 
 gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
-# Level 21 -> 22
+## Level 21 -> 22
 The level task says there is a cronjob configured which can be found under
 `/etc/cron.d/`:
 
@@ -272,7 +272,7 @@ cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 As the file that is being written to can be read as any user we can just use
 `cat` to get the next password that it contains.
 
-# Level 22 -> 23
+## Level 22 -> 23
 Again we are given a shell script that is periodically executed as a cronjob:
 
 ```bash
@@ -293,7 +293,7 @@ password. We can just execute the expression
 
 jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
 
-# Level 23 -> 24
+## Level 23 -> 24
 The given script that is executed by cron as `bandit24` looks like:
 
 ```bash
@@ -337,7 +337,7 @@ The password will then be printed into `/tmp/b24passwd/pass`.
 
 UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 
-# Level 24 -> 25
+## Level 24 -> 25
 The task states the password can be retrieved by sending the last password
 and a secret 4-digit pin to port 30002 on localhost via tcp and the pin
 can only be retrieved by bruteforcing. I therefore wrote this crappy little
@@ -412,7 +412,7 @@ Password: Correct!
 The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 ```
 
-# Level 25 -> 26
+## Level 25 -> 26
 A ssh key for the `bandit26` user is provided to us. When we try to login
 via ssh we get:
 
@@ -471,7 +471,7 @@ So we can set the shell to be used: `:set shell=/bin/bash`
 
 5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
 
-# Level 26 -> 27
+## Level 26 -> 27
 
 Now we can execute shell commands in vi and get the next password via the given
 `setuid`-binary:
@@ -481,13 +481,13 @@ Now we can execute shell commands in vi and get the next password via the given
 
 3ba3118a22e93127a4ed485be72ef5ea
 
-# Level 27 -> 28
+## Level 27 -> 28
 This level can quickly be solved by cloning the provided git repository and
 reading the `README.md` it contains.
 
 0ef186ac70e04ea33b4c1853d2526fa2
 
-# Level 28 -> 29
+## Level 28 -> 29
 We again are provided a git repository to clone. It also contains a `READE.md`
 but the password seems to be removed: 
 ```
@@ -514,7 +514,7 @@ Some notes for level29 of bandit.
 - password: bbc96594b4e001778eee9975372716b2
 ```
 
-# Level 29 -> 30
+## Level 29 -> 30
 The git repository for this level also has a `README.md` file with the following
 content:
 
@@ -542,7 +542,7 @@ Some notes for bandit30 of bandit.
 - password: 5b90576bedb2cc04c86a9e924ce42faf
 ```
 
-# Level 30 -> 31
+## Level 30 -> 31
 This repository shows only one commit which created the file `README.md`:
 
 ```
@@ -575,7 +575,7 @@ By using `git show` to print details about the tag we get the next password:
 47e603bb428404d265f59c42920d81e5
 ``` 
 
-# Level 31 -> 32
+## Level 31 -> 32
 The `README.md` in the given repository states:
 ```
 This time your task is to push a file to the remote repository.
@@ -615,7 +615,7 @@ To ssh://localhost/home/bandit31-git/repo
 error: failed to push some refs to 'ssh://bandit31-git@localhost/home/bandit31-git/repo'
 ```
 
-# Level 32 -> 33
+## Level 32 -> 33
 In this level we are trapped in a "uppercase shell" which transforms any alphabetic
 character to uppercase. Therefore we cannot use common commands because the
 shell cannot find them after being transformed:
