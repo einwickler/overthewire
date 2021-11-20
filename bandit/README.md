@@ -256,9 +256,11 @@ can be invoked with the port `netcat` is listening on:
 
 A TCP-connection is established and the last password can be entered from the
 `netcat` session which results in the `suconnect` binary responding with the
-next password.
-
+next password: 
+```
 gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+``` 
+
 ## Level 21 -> 22
 The level task says there is a cronjob configured which can be found under
 `/etc/cron.d/`:
@@ -289,10 +291,11 @@ cat /etc/bandit_pass/$myname > /tmp/$mytarget
 So the `$mytarget` variable yields the name of the file which contains the next
 password. We can just execute the expression
 `echo I am user $myname | md5sum | cut -d ' ' -f 1` by replacing `$myname` with
-`bandit23` and entering it into a shell (e.g. `bash`).
+`bandit23` and entering it into a shell (e.g. `bash`):
 
+```
 jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
-
+```
 ## Level 23 -> 24
 The given script that is executed by cron as `bandit24` looks like:
 
@@ -332,10 +335,10 @@ cat /etc/bandit_pass/bandit24 >> /tmp/b24passwd/pass
 ```
 
 We also need to grant execute permissions: `chmod +x /var/spool/bandit24/getpass.sh`
-The password will then be printed into `/tmp/b24passwd/pass`.
-
-
+The password will then be printed into `/tmp/b24passwd/pass`:
+```
 UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+```
 
 ## Level 24 -> 25
 The task states the password can be retrieved by sending the last password
@@ -469,8 +472,11 @@ be started by setting the vi shell option*
 
 So we can set the shell to be used: `:set shell=/bin/bash`
 
-5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+And then execute a command to get to the current password:
 
+```
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+```
 ## Level 26 -> 27
 
 Now we can execute shell commands in vi and get the next password via the given
@@ -478,14 +484,19 @@ Now we can execute shell commands in vi and get the next password via the given
 ```
 :!~/bandit27-do cat /etc/bandit_pass/bandit27
 ```
+so we get:
 
+```
 3ba3118a22e93127a4ed485be72ef5ea
+```
 
 ## Level 27 -> 28
 This level can quickly be solved by cloning the provided git repository and
-reading the `README.md` it contains.
+reading the `README.md` it contains:
 
+```
 0ef186ac70e04ea33b4c1853d2526fa2
+```
 
 ## Level 28 -> 29
 We again are provided a git repository to clone. It also contains a `READE.md`
@@ -628,10 +639,12 @@ sh: 1: ID: not found
 >> 
 ```
 
-But we can see that `sh` is used here. `sh` is the POSIX compliant alternative
-to `bash` which specific implementation is used depends on the distribution
-you are on. The overthewire machines are using Devuan (Debian based).
-`sh` points to `dash` in both Debian and Devuan. We can read up about `dash` here:
+But we can see that `sh` is used here. `sh` is the POSIX standard shell
+implementation (also referred to as "Bourne shell"). 
+Which specific implementation is used depends on the distribution you are on.
+The overthewire machines are using Devuan (Debian based).
+`sh` points to `dash` in both Debian and Devuan. We can read up about
+`dash` here:
 
 https://linux.die.net/man/1/dash
 
@@ -644,8 +657,8 @@ that can be used inside this shell. One of them is `$0`:
 
 NOTE: This special parameter is also available in bash 
 (see section "Special Parameters" on https://man7.org/linux/man-pages/man1/bash.1.html)
-but it's important to note that `sh` is NOT `bash` (although on some distributions
-`sh` is a link to `bash` with a special flag).
+but it's important to note that `sh` is NOT `bash` (although on some
+distributions `sh` is just a symlink to `bash` with a special flag).
 
 So when we enter `$0` into the "uppercase shell" we enter into `sh` and can then
 enter `/bin/bash` to get to our beloved `bash` shell if we want to.
